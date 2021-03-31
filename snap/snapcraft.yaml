@@ -6,10 +6,12 @@ description: |
 confinement: devmode 
 grade: devel
 base: core20
+architectures:
+  - build-on: amd64
 parts:
   trader-service:
     plugin: npm
-    source: https://github.com/xstyle/trader-service.git
+    source: http://github.com/xstyle/trader-service.git
     source-type: git
     npm-node-version: 14.16.0
     build-packages:
