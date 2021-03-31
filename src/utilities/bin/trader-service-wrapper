@@ -1,0 +1,18 @@
+#!/bin/sh
+
+export MONGO_DB="$(snapctl get mongo-db)"
+export HOSTNAME="$(snapctl get hostname)"
+export TELEGRAM_TOKEN="$(snapctl get telegram-token)"
+export TELEGRAM_ID="$(snapctl get telegram-id)"
+export FIRST_DAY="$(snapctl get first-day)"
+export API_TOKEN="$(snapctl get api-token)"
+export API_URL="$(snapctl get api-url)"
+
+if [ -z "$MONGO_DB" -o -z "$HOSTNAME" -o -z "$TELEGRAM_TOKEN" -o -z "$TELEGRAM_ID" -o -z "$FIRST_DAY" -o -z "$API_TOKEN" -o -z "$API_URL" ]
+then
+    echo "Settings mongo-db, hostname, telegramm-token, telegram-id, first-day, api-token and api-url required. Service will be disabled."
+    snapctl stop trader.trader --disable
+    exit 1
+fi
+
+"$SNAP/bin/trader-service"
