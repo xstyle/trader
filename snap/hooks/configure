@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+MONGO_DB="$(snapctl get mongo-db)"
+HOSTNAME="$(snapctl get hostname)"
+TELEGRAM_TOKEN="$(snapctl get telegram-token)"
+TELEGRAM_ID="$(snapctl get telegram-id)"
+API_TOKEN="$(snapctl get api-token)"
+API_URL="$(snapctl get api-url)"
+FIRST_DAY="$(snapctl get first-day)"
+
+echo "Exec configure hook"
+
+if [ -z "$MONGO_DB" -o -z "$HOSTNAME" -o -z "$TELEGRAM_ID" -o -z "$TELEGRAM_TOKEN" -o -z "$API_TOKEN" -o -z "$API_URL" -o -z "$FIRST_DAY"]
+then
+    echo "Not all settings configure. Service will be stopped and disabled."
+    snapctl stop trader.trader --disable
+else
+    echo "Configs OK. Service will be enabled and started."
+    snapctl start trader.trader --enable
+fi
+exit 0
