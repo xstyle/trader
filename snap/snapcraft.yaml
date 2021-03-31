@@ -10,6 +10,7 @@ parts:
   trader-service:
     plugin: npm
     source: https://github.com/xstyle/trader-service.git
+    source-type: git
     npm-node-version: 14.16.0
     build-packages:
       - npm
