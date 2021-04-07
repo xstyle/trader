@@ -1,5 +1,5 @@
 name: trader
-version: '0.1.1'
+version: '0.2.0'
 summary: Single-line elevator pitch for your amazing snap # 79 char long summary
 description: |
     This is trader description.
@@ -10,6 +10,16 @@ architectures:
   - build-on: amd64
   - build-on: arm64
 parts:
+  trader-client:
+    plugin: npm
+    source: https://github.com/xstyle/trader-client.git
+    npm-node-version: 14.16.0
+    build-packages:
+      - npm
+    override-build: |
+      npm config set unsafe-perm true
+      npm install
+      snapcraftctl build
   trader-service:
     plugin: npm
     source: https://github.com/xstyle/trader-service.git
@@ -22,13 +32,19 @@ parts:
       snapcraftctl build
   scripts:
     plugin: dump
-    source: src/utilities    
+    source: src/utilities
 apps:
   trader:
     command: bin/trader-service-wrapper
     daemon: simple
     environment: 
       ENV: production
+    plugs:
+      - network
+      - network-bind
+  trader-client:
+    command: bin/trader-client-wrapper
+    daemon: simple
     plugs:
       - network
       - network-bind

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export HOSTNAME="$(snapctl get hostname)"
+
+if [ -z "$HOSTNAME"]
+then
+    echo "Hostname required."
+    exit 1
+fi
+
+cd "$SNAP/lib/node_modules/tinextjs"
+npm run start
