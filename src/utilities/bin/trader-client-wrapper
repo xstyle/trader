@@ -8,5 +8,5 @@ then
     exit 1
 fi
 
-cd "$SNAP/lib/node_modules/tinextjs"
+cd "$SNAP/lib/node_modules/trader-client"
 npm run start
