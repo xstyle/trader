@@ -1,6 +1,7 @@
 #!/bin/sh
 
 export HOSTNAME="$(snapctl get hostname)"
+export VERSION="$SNAP_REVISION"
 
 if [ -z "$HOSTNAME"]
 then
